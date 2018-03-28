@@ -1,27 +1,16 @@
-let stream$ = Rx.Observable.create(function (observer) {
+let button = document.querySelector('button');
+let btn$ = Rx.Observable.fromEvent(button, 'click');
 
-    observer.next('One');
-
-    setTimeout(function () {
-        observer.next("After 3 seconds");
-    }, 3000);
-
-     setTimeout(function () {
-        observer.error("Smth wrong");
-    }, 5000);
-
-    observer.next("Two");
+btn$.subscribe(function (e) {
+    console.log(e);
 });
 
-stream$
-    .subscribe(
-        function (data) {
-            console.log('Subscribe: ', data);
-        },
-        function(error){
-            console.log("Error: " , error)
-        },
-        function(){
-            console.log("Compleated!");
-        }
-    );
+Rx.Observable.fromEvent(document.querySelector('input'), 'keyup')
+    .subscribe(e => {
+        console.log(e);
+    });
+
+Rx.Observable.fromEvent(document, 'mousemove')
+    .subscribe(e => {
+        document.querySelector('h1').innerHTML = `X: ${e.clientX} , Y: ${e.clientY}`;
+    });
