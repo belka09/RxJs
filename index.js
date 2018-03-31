@@ -33,14 +33,30 @@ function createSubscribe(name) {
 // Rx.Observable.from(map)
 //     .subscribe(createSubscribe('from'));
 
-Rx.Observable.fromEvent(document.querySelector('input'), 'keyup')
-    // .map(x => x.target.value)
-    .pluck('target', 'value')
-    .map(x => x.toUpperCase())
-    .map(x => {
-        return {
-            value: x,
-            length: x.length
-        };
-    })
-    .subscribe(createSubscribe('map'));
+// Rx.Observable.fromEvent(document.querySelector('input'), 'keyup')
+//     // .map(x => x.target.value)
+//     .pluck('target', 'value')
+//     .map(x => x.toUpperCase())
+//     .map(x => {
+//         return {
+//             value: x,
+//             length: x.length
+//         };
+//     })
+//     .subscribe(createSubscribe('map'));
+
+// Rx.Observable.of(1,5,'lol', 'kek')
+//     .skipWhile( x => {
+//         return typeof(x) === 'number';
+//     })
+//     .subscribe(createSubscribe('find'));
+
+// Rx.Observable.interval(500)
+//     .skipWhile( x => x < 5)
+//     .takeWhile( x => x < 13)
+//     .subscribe(createSubscribe("takeWhile"));
+
+Rx.Observable.interval(500)
+    .skipUntil(Rx.Observable.timer(3000))
+    .takeUntil(Rx.Observable.timer(5000))
+    .subscribe(createSubscribe("skipUntil"));
