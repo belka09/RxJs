@@ -56,7 +56,42 @@ function createSubscribe(name) {
 //     .takeWhile( x => x < 13)
 //     .subscribe(createSubscribe("takeWhile"));
 
-Rx.Observable.interval(500)
-    .skipUntil(Rx.Observable.timer(3000))
-    .takeUntil(Rx.Observable.timer(5000))
-    .subscribe(createSubscribe("skipUntil"));
+// Rx.Observable.interval(500)
+//     .skipUntil(Rx.Observable.timer(3000))
+//     .takeUntil(Rx.Observable.timer(5000))
+//     .subscribe(createSubscribe("skipUntil"));
+
+const cars = [
+    {
+        name: 'bmw',
+        price: 600
+    },
+    {
+        name: 'audi',
+        price: 500
+    },
+    {
+        name: 'chevrolet',
+        price: 200
+    }
+];
+
+// Rx.Observable.range(0, 10)
+//     .filter(x => x === 3)
+//     .subscribe(createSubscribe('filter: '));
+
+// Rx.Observable.fromEvent(document.querySelector('input'), 'keyup')
+//     .map(e => e.target.value)
+//     .subscribe( x => {
+//         Rx.Observable.from(cars)
+//             .filter(c => c.name === x)
+//             .subscribe(v => {
+//                 document.querySelector('div').innerHTML = `<h2>${v.name}</h2><h4>${v.price}</h4>`
+//             })
+//     })
+
+
+Rx.Observable.fromEvent(document.querySelector('input'), 'keyup')
+    .map(e => e.target.value)
+    .debounceTime(1500)
+    .subscribe(createSubscribe('debounceTime'));
